@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Form Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Boxicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body class="displaybackg">
+     <!-- Header -->
+     <header>
+        <a href="#" class="logo"><img src="/img/jeep.png" alt=""></a>
+
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#ride">Ride</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            
+        </ul>
+
+        <div class="header-btn">
+            <a href="signup.html" class="sign-up">Register Now</a>
+            <a href="signin.html" class="sign-in">Sign In</a>
+        </div>
+
+    </header>
+    <!-- <div class="anicar">
+<img src="/img/caranimation1.gif" alt="">
+    </div> -->
+    <div class="form-container1">
+
+        <div class="heading-signup">
+            <h2>Form Submission Details</h2>
+
+        </div>
+   
+    <div id="details"></div>
+    <button id="sendWhatsApp">Send to WhatsApp 
+       </button>
+
+    <script>
+      function displayDetails(data) {
+    const detailsDiv = document.getElementById('details');
+    for (const [key, value] of Object.entries(data)) {
+        const p = document.createElement('p');
+        if (key === 'username') {
+            p.textContent = value; // Remove "Hello" before username
+        } else {
+            p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`;
+        }
+        detailsDiv.appendChild(p);
+    }
+}
+
+function prepareWhatsAppMessage(data) {
+    let message = '';
+    for (const [key, value] of Object.entries(data)) {
+        if (key === 'username') {
+            message += `${value}\n`; // Remove "Hello" before username
+        } else {
+            message += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}\n`;
+        }
+    }
+    return message;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+    let data = {};
+
+    if (type === 'signin') {
+        data = JSON.parse(localStorage.getItem('signInData'));
+    } else if (type === 'signup') {
+        data = JSON.parse(localStorage.getItem('signUpData'));
+    }
+
+    displayDetails(data);
+
+    document.getElementById('sendWhatsApp').addEventListener('click', function() {
+        const message = prepareWhatsAppMessage(data);
+        const phoneNumber = '8128260653'; // Replace with your WhatsApp number
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    });
+});
+
+    </script>
+    
+</div>
+     <!-- NewsLetter -->
+     <section class="newsletter">
+        <h2>Subscribe to newsletter</h2>
+        <div class="box">
+            <input type="text" placeholder="Enter your Email..">
+            <a href="#" class="btn">Subscribe</a>
+        </div>
+        <div class="copyright">
+            <p>2024 All Right Reserved</p>
+            <div class="social">
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-twitter'></i></a>
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>
